@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Number Guessing Game</title>
+</head>
+<body>
+	<h1>Number Guessing Game</h1>
+	<p>Enter a number between 1 and 100:</p>
+	<input type="number" id="user-input">
+	<button onclick="startGame()">Start Game</button>
+	<p id="status"></p>
+
+	<script>
+		let computerGuesses = 5;
+		let userNumber;
+
+		function startGame() {
+			userNumber = parseInt(document.getElementById("user-input").value);
+			if (userNumber < 1 || userNumber > 100 || isNaN(userNumber)) {
+				document.getElementById("status").innerHTML = "wrong number. Please enter a number between 1 and 100.";
+			} else {
+				document.getElementById("status").innerHTML = "Game started";
+				computerGuess();
+			}
+		}
+
+		function computerGuess() {
+			let guess = Math.floor(Math.random() * 100) + 1;
+			computerGuesses--;
+			if (guess === userNumber) {
+				document.getElementById("status").innerHTML = "The computer guessed your number in " + (5 - computerGuesses) + " attempts. Computer wins!";
+			} else if (computerGuesses === 0) {
+				document.getElementById("status").innerHTML = "The computer was unable to guess your number. You win!";
+			} else {
+				document.getElementById("status").innerHTML = "The computer guessed " + guess + ". It has " + computerGuesses + " more chances.";
+				setTimeout(computerGuess, 1000);
+			}
+		}
+	</script>
+</body>
+</html>
